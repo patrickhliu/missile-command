@@ -1,0 +1,63 @@
+body {
+    background-color: #FFBD08;
+}
+
+header {
+    background-color: #FF550D;
+    margin: 0 0 30px 0;
+    padding: 10px 0;
+}
+
+header h1 {
+    font-family: chewy;
+    text-align: center;
+    font-size: 4.6em;
+    margin: 0;
+}
+
+.directions {
+    width: 460px;
+    padding: 10px 0 10px 10px;
+    background-color: #F7C368;
+    border: 2px solid black;
+    border-radius: 12px;
+    margin: 30px auto;
+}
+
+.canvas {
+    outline: 4px solid #7C8DEB;
+    background-color: black;
+    display: block;
+    margin: 0 auto 30px;
+}
+
+.game-on {
+    background-color: #00F504;
+}
+
+.panel {
+    width: 200px;
+    margin: 30px auto;
+    border-radius: 12px;
+    border: 2px solid black;
+    padding: 12px 0;
+    background-color: #F7C368;
+}
+
+.panel .start-game {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    font-family: orbitron;
+    padding: 5px;
+}
+
+.panel .stats {
+    display: block;
+    width: 140px;
+    margin: 10px auto;
+    font-family: orbitron;
+    font-weight: bold;
+}
+
+
