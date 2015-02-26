@@ -156,7 +156,7 @@ function checkGameStatus () {
     else if (blueCities.length === 0 && gameOn) {
         setTimeout(function () {            
             alert("All cities were destroyed!\nGame Over !!\nPress OK to start new game");          // show game over alert box
-            window.location.assign('http://localhost/missilecommand/');                             // refresh the page to start all over
+            window.location.assign('http://pliu82.github.io/missilecommand');                       // refresh the page to start all over
         }, 500);
     }
 }
