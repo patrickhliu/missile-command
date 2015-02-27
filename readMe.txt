@@ -16,6 +16,8 @@ Languages: HTML / CSS / vanilla javascript
 Needed Improvements: 
 collision detection between enemy missile & yellow base / blue city.
 
+Tested: IE 11 / Firefox 36.0 / Chrome 40
+
 Github Page: http://pliu82.github.io/missilecommand
 
 

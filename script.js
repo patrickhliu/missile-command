@@ -2,7 +2,7 @@
 Missile Command
 All code is in vanilla jS
 **********************************/
-
+var homeURL = 'http://localhost/port/missilecommand/';
 var canvas = document.querySelector('canvas');                      // variable for canvas element
 var ctx = canvas.getContext('2d');                                  // variable for context
 var startGame = document.querySelector('.start-game');              // variable for "insert quarter" button
@@ -103,8 +103,8 @@ setInterval( function () {
     ctx.stroke();
 }, 1000/30);
 
-// every second, check game status (verify either game is over, or user is ready to move to next round)
-setInterval( function() {                               
+// every second, check game status, sees if ready to move to next round -or- call game over
+setInterval( function() {
     checkGameStatus();
 }, 1000);
 
@@ -131,10 +131,10 @@ function randNum (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// function called every second to verify game status
+// function checks if game can move on to next round -or- if game is over.  Function is called each time an enemy missile explodes.
 function checkGameStatus () {   
-    // once all enemy missiles have exploded, game has already started, but blue cities still remain...keep going to next level
-    if (enemyShootMissileArr.length === 0 && gameOn && blueCities.length > 0) {     
+    // if blue cities still remain...keep going to next level
+    if (blueCities.length > 0 && gameOn && enemyShootMissileArr.length === 0) {     
         level.speed += 0.1;                                 // increase enemy missile speed for next level
 
         level.levelNum++;                                   // increment level # and update the display
@@ -143,21 +143,17 @@ function checkGameStatus () {
         score = score + (blueCities.length * 20)            // calculate score of remaining blue cities and update display
         scoreDisplay.textContent = score;
 
-        // wait a bit to let any exploding animations finish, then show the alert window.
+        // alert user next round is ready to begin
         // when user clicks OK, next rounds starts with 8 new enemy missiles
-        setTimeout(function () {                            
-            alert("All enemy missiles exploded!\nPress OK to continue to next round");
-            for (var k = 0; k < level.enemyMissileCount; k++) {
-                drawEnemyMissile( level.speed );    
-            }
-        }, 500);            
+        alert("All enemy missiles exploded!\nPress OK to continue to next round");
+        for (var k = 0; k < level.enemyMissileCount; k++) {
+            drawEnemyMissile( level.speed );    
+        }
     } 
     // if all blue cities have been destroyed, the game is over...
-    else if (blueCities.length === 0 && gameOn) {
-        setTimeout(function () {            
-            alert("All cities were destroyed!\nGame Over !!\nPress OK to start new game");          // show game over alert box
-            window.location.assign('http://pliu82.github.io/missilecommand');                       // refresh the page to start all over
-        }, 500);
+    else if (blueCities.length === 0 && gameOn && enemyShootMissileArr.length === 0) {
+            alert("All cities destroyed!\nGame Over !!\nPress OK to start new game");               // show game over alert box
+            window.location.reload();
     }
 }
 
@@ -311,9 +307,20 @@ function checkPlayerHitEnemy(arg_ctx) {
     for (var b = 0; b < enemyShootMissileArr.length; b++) {                                                 // iterate through the array of enemy missile objects
         if( arg_ctx.isPointInPath(enemyShootMissileArr[b].scaleX, enemyShootMissileArr[b].scaleY) ) {       // if the current (x,y) of that enemy missile is within our exploding circle
             enemyShootMissileArr[b].scaleX = 'OFF';                                                         // set the scaleX & Y (this would be stepX & Y) to string 'off'
-            enemyShootMissileArr[b].scaleY = 'OFF';                                                         // 'off' will cause the drawing of enemy missile to stop
-            enemyShootMissileArr.splice(b,1);                                                               // remove the enemy missile from the array
-            score += 10;                                                                                    // update score (player gets 10 pts / enemy missile)
+            enemyShootMissileArr[b].scaleY = 'OFF';                                                         // 'off' will cause the drawing of enemy missile to stop           
+
+            if (enemyShootMissileArr.length === 1) {                    // if one missile remains...
+                setTimeout((function(b) {
+                    return function() {
+                        enemyShootMissileArr.splice(b,1);               // remove that missile element, but delay it -- fix for Firefox timing problem
+                    }                    
+                })(b), 500);
+            }
+            else {
+                enemyShootMissileArr.splice(b,1);                       // otherwise remove that array element right away
+            }            
+
+            score += 10;                                                // update score (player gets 10 pts / enemy missile)
             scoreDisplay.textContent = score;
         }
     }
@@ -370,26 +377,36 @@ function Missile (arg_xDest, arg_yDest, arg_xStep, arg_yStep, arg_xOrig, arg_yOr
     this.destX = arg_xDest,
     this.destY = arg_yDest,
     this.radius = 0,                                                                                // radius starts at 0 for the missile explosion
-    this.deplode = function () {                                                                    // this function starts the missile's deplosion animation
-                        if ( this.radius >= 0) {                                                    // if radius hasn't reached 0, keep de-ploding...
-
-                            if (!arg_playerFlag) {          // if this is an enemy missile...and it deplodes...that means it reached the players base
-                                for (var d = 0; d < enemyShootMissileArr.length; d++ ) {            // iterate through the enemy missile array
-                                    if (enemyShootMissileArr[d].originX === this.originX &&         // do a bunch of checks to make sure you match the right array element
-                                        enemyShootMissileArr[d].originY === this.originY &&
-                                        enemyShootMissileArr[d].destX === this.destX &&
-                                        enemyShootMissileArr[d].destY === this.destY ) {
-                                        enemyShootMissileArr.splice(d,1);                           // remove that array element
-                                    }
-                                }
-                            }                           
-
+    this.deplode = function () {                                                                    // this function starts the missile's deplosion animation                   
+                        if ( this.radius > 0) {                                                     // if radius hasn't reached 0, keep de-ploding...
                             ctx.beginPath();                                                        // draw the de-plosion animation with current radius
                             ctx.arc( this.destX, this.destY, this.radius, 0, 2*Math.PI, false);
                             ctx.fillStyle = missileColors[randNum(0, missileColors.length)];
                             ctx.fill();
                             this.radius -= 2;                                                       // decrement radius
                             reqAnimFrame(this.deplode.bind(this));                                  // draw next de-plosion circle at next browser frame
+                        }                        
+                        else if (this.radius === 0) {
+                            if (!arg_playerFlag) {                                                  // enemy missiles with radius 0...
+                                for (var d = 0; d < enemyShootMissileArr.length; d++ ) {            // iterate through the enemy missile array
+                                    if (enemyShootMissileArr[d].originX === this.originX &&         // do a bunch of checks to make sure you match the right array element
+                                        enemyShootMissileArr[d].originY === this.originY &&
+                                        enemyShootMissileArr[d].destX === this.destX &&
+                                        enemyShootMissileArr[d].destY === this.destY ) {
+                                        
+                                        if (enemyShootMissileArr.length === 1) {                    // if one missile remains...
+                                            setTimeout((function(d) {
+                                                return function() {
+                                                    enemyShootMissileArr.splice(d,1);               // remove that missile element, but delay it -- fix for Firefox timing problem
+                                                }                    
+                                            })(d), 500);
+                                        }
+                                        else {
+                                            enemyShootMissileArr.splice(d,1);                       // otherwise remove that array element right away
+                                        }          
+                                    }
+                                }
+                            } 
                         }
                     },
     this.explode = function () {                                                                        // this function starts a missile's explosion animation
