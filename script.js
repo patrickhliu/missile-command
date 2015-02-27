@@ -2,7 +2,6 @@
 Missile Command
 All code is in vanilla jS
 **********************************/
-var homeURL = 'http://localhost/port/missilecommand/';
 var canvas = document.querySelector('canvas');                      // variable for canvas element
 var ctx = canvas.getContext('2d');                                  // variable for context
 var startGame = document.querySelector('.start-game');              // variable for "insert quarter" button
