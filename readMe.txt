@@ -14,7 +14,8 @@ http://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-wit
 Languages: HTML / CSS / vanilla javascript
 
 Needed Improvements: 
-collision detection between enemy missile & yellow base / blue city.
+1) collision detection between enemy missile & yellow base / blue city.
+2) at end of game, Firefox displays 'out of memory' in console.  Game is still playable.
 
 Tested: IE 11 / Firefox 36.0 / Chrome 40
 
