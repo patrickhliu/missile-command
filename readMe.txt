@@ -19,6 +19,6 @@ Needed Improvements:
 
 Tested: IE 11 / Firefox 36.0 / Chrome 40
 
-Github Page: http://pliu82.github.io/missilecommand
+Github Page: http://pliu82.github.io/missile-command
 
 
