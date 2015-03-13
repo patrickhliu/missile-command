@@ -1,24 +1,30 @@
+****************
 Missile Command
-Idea taken from Odin Project:  
-http://www.theodinproject.com/javascript-and-jquery/building-games-with-canvas
+****************
+The idea for this project comes from: 
+	http://www.theodinproject.com/javascript-and-jquery/building-games-with-canvas
 
 Project Details:
-Implement Missile Command in a web browser
+	Create missile command using Javascript.
 
-The math/methods need to make missile trajectory animate smoothly comes from: 
+Hosted Link:
+	http://pliu82.github.io/missile-command
+
+Instructions:
+	Plays the same as the real missile command
+
+Languages: 
+	HTML / CSS / Vanilla Javascript
+
+3rd Party Tools: 
+	None
+
+Helpful Resources (many thanks):
+1) The math to make missile trajectory animate smoothly comes from: 
 https://github.com/donaldali/odin-js-jquery/tree/master/missile_command
 
-The methods for collision detection between enemy missile and yellow missile base or blue city: 
+2) The methods for collision detection between enemy missile and yellow missile base or blue city: 
 http://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle-in-html5-canvas
 
-Languages: HTML / CSS / vanilla javascript
-
-Needed Improvements: 
-1) collision detection between enemy missile & yellow base / blue city.
-2) at end of game, Firefox displays 'out of memory' in console.  Game is still playable.
-
-Tested: IE 11 / Firefox 36.0 / Chrome 40
-
-Github Page: http://pliu82.github.io/missile-command
-
-
+Needed Improvements:
+	- at end of game, Firefox displays 'out of memory' in console.  Game is still playable.
