@@ -30,3 +30,4 @@ http://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-wit
 Needed Improvements:
 	- At end of game, Firefox displays 'out of memory' in console.  
 	  Game is still playable.
+	- Collision detection isn't 100%.
