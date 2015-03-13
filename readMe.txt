@@ -23,8 +23,10 @@ Helpful Resources (many thanks):
 1) The math to make missile trajectory animate smoothly comes from: 
 https://github.com/donaldali/odin-js-jquery/tree/master/missile_command
 
-2) The methods for collision detection between enemy missile and yellow missile base or blue city: 
+2) The methods for collision detection between enemy missile 
+   and yellow missile base or blue city: 
 http://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle-in-html5-canvas
 
 Needed Improvements:
-	- at end of game, Firefox displays 'out of memory' in console.  Game is still playable.
+	- At end of game, Firefox displays 'out of memory' in console.  
+	  Game is still playable.
