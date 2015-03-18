@@ -15,6 +15,22 @@ header h1 {
     margin: 0;
 }
 
+/* Warning for browsers with Javascript disabled */
+.no-script {
+    margin: 20px 0;
+}
+
+.no-script p {
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
+    font-weight: bold;
+    background-color: #FF0D0D;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
 .directions {
     width: 480px;
     padding: 10px 0 10px 10px;
