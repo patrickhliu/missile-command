@@ -15,7 +15,7 @@ var reqAnimFrame = window.requestAnimationFrame       ||            // varible t
                    window.webkitRequestAnimationFrame ||
                    window.msRequestAnimationFrame     ||
                    window.oRequestAnimationFrame;
-//var playerShootMissileArr = { left: [], center: [], right: [] };    // each array holds missiles (js objects) fired by user
+//var playerShootMissileArr = { left: [], center: [], right: [] };  // each array holds missiles (js objects) fired by user
 var enemyShootMissileArr = [];                                      // one array to hold enemy missiles (js objects)
 var gameOn = false;                                                 // boolean flag to indicate if game has started or not
 var missileColors = ['red', 'blue', 'green',                        // when a missile explodes, it'll flash random colors from this array
@@ -42,59 +42,59 @@ var yellowMissileRect = [
 
 // player has a total of 30 missiles.  remMissileLoc is a 2D array, 3 arrays of 10 objects each.
 // each object contains a starting coordinate of where each missile will be drawn on screen.
-var remMissileLoc = [];								// array holds coordinates for remaining missiles to draw
-var playerShootMissileArr = {};						// array keeps track of # of missiles fired per round (max 30)
+var remMissileLoc = [];                     // array holds coordinates for remaining missiles to draw
+var playerShootMissileArr = {};             // array keeps track of # of missiles fired per round (max 30)
 
-function refillMissiles() {			
-	remMissileLoc = [
-		// LEFT BASE
-		   [{ num: 10, x: 40, y: 447},
-			
-			{ num: 9,  x: 31, y: 452},
-			{ num: 8,  x: 49, y: 452},
-			
-			{ num: 7,  x: 22, y: 457},
-			{ num: 6,  x: 40, y: 457},
-			{ num: 5,  x: 58, y: 457},
-			
-			{ num: 4,  x: 13, y: 462},
-			{ num: 3,  x: 31, y: 462},
-			{ num: 2,  x: 49, y: 462},
-			{ num: 1,  x: 67, y: 462}], 
-		// CENTER BASE
-		   [{ num: 10, x: 300, y: 447},
-			
-			{ num: 9,  x: 291, y: 452},
-			{ num: 8,  x: 309, y: 452},
-			
-			{ num: 7,  x: 282, y: 457},
-			{ num: 6,  x: 300, y: 457},
-			{ num: 5,  x: 318, y: 457},
-			
-			{ num: 4,  x: 273, y: 462},
-			{ num: 3,  x: 291, y: 462},
-			{ num: 2,  x: 309, y: 462},
-			{ num: 1,  x: 327, y: 462}],
-		// RIGHT BASE
-		   [{ num: 10, x: 560, y: 447},
-			
-			{ num: 9,  x: 551, y: 452},
-			{ num: 8,  x: 569, y: 452},
-			
-			{ num: 7,  x: 542, y: 457},
-			{ num: 6,  x: 560, y: 457},
-			{ num: 5,  x: 578, y: 457},
-			
-			{ num: 4,  x: 533, y: 462},
-			{ num: 3,  x: 551, y: 462},
-			{ num: 2,  x: 569, y: 462},
-			{ num: 1,  x: 587, y: 462}]
-		];
-		
-		playerShootMissileArr = { left: [], center: [], right: [] };		
+function refillMissiles() {         
+    remMissileLoc = [
+        // LEFT BASE
+           [{ num: 10, x: 40, y: 447},
+            
+            { num: 9,  x: 31, y: 452},
+            { num: 8,  x: 49, y: 452},
+            
+            { num: 7,  x: 22, y: 457},
+            { num: 6,  x: 40, y: 457},
+            { num: 5,  x: 58, y: 457},
+            
+            { num: 4,  x: 13, y: 462},
+            { num: 3,  x: 31, y: 462},
+            { num: 2,  x: 49, y: 462},
+            { num: 1,  x: 67, y: 462}], 
+        // CENTER BASE
+           [{ num: 10, x: 300, y: 447},
+            
+            { num: 9,  x: 291, y: 452},
+            { num: 8,  x: 309, y: 452},
+            
+            { num: 7,  x: 282, y: 457},
+            { num: 6,  x: 300, y: 457},
+            { num: 5,  x: 318, y: 457},
+            
+            { num: 4,  x: 273, y: 462},
+            { num: 3,  x: 291, y: 462},
+            { num: 2,  x: 309, y: 462},
+            { num: 1,  x: 327, y: 462}],
+        // RIGHT BASE
+           [{ num: 10, x: 560, y: 447},
+            
+            { num: 9,  x: 551, y: 452},
+            { num: 8,  x: 569, y: 452},
+            
+            { num: 7,  x: 542, y: 457},
+            { num: 6,  x: 560, y: 457},
+            { num: 5,  x: 578, y: 457},
+            
+            { num: 4,  x: 533, y: 462},
+            { num: 3,  x: 551, y: 462},
+            { num: 2,  x: 569, y: 462},
+            { num: 1,  x: 587, y: 462}]
+        ];
+        
+        playerShootMissileArr = { left: [], center: [], right: [] };        
 }
 
-refillMissiles();										// draw all 30 missiles + set fired counter to 0 at start of game
+refillMissiles();                                       // draw all 30 missiles + set fired counter to 0 at start of game
 
 // every 33.33 milliseconds, these functions will run
 setInterval( function () {
@@ -154,14 +154,14 @@ function checkGameStatus () {
         // alert user next round is ready to begin
         // when user clicks OK, next rounds starts with 8 new enemy missiles
         alert("All enemy missiles exploded!\nPress OK to continue to next round");
-		refillMissiles();									// draw all 30 missiles + set fired counter to 0 at start of next round
+        refillMissiles();                                   // draw all 30 missiles + set fired counter to 0 at start of next round
         for (var k = 0; k < level.enemyMissileCount; k++) {
             drawEnemyMissile( level.speed );    
         }
     } 
     // if all blue cities have been destroyed, the game is over...
     else if (blueCities.length === 0 && gameOn && enemyShootMissileArr.length === 0) {
-            alert("All cities destroyed!\nGame Over !!\nPress OK to start new game");               // show game over alert box
+            alert("All cities destroyed!\nGame Over !!\nPress OK to start new game");       // show game over alert box
             window.location.reload();
     }
 }
@@ -566,6 +566,6 @@ canvas.addEventListener('click', function(e) {
         }
     }  
 
-	//console.log(remMissileLoc[0].length + ' ' + remMissileLoc[1].length + ' ' + remMissileLoc[2].length);
-	//console.log(playerShootMissileArr);
+    //console.log(remMissileLoc[0].length + ' ' + remMissileLoc[1].length + ' ' + remMissileLoc[2].length);
+    //console.log(playerShootMissileArr);
 })
