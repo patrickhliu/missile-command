@@ -76,4 +76,8 @@ header h1 {
     font-weight: bold;
 }
 
+.indent {
+	padding-left: 24px;
+}
+
 
