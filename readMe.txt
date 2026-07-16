@@ -8,7 +8,7 @@ Project Details:
 	Create missile command using Javascript.
 
 Hosted Link:
-	http://pliu82.github.io/missile-command
+	http://patrickhliu.github.io/missile-command
 
 Instructions:
 	Plays the same as the real missile command
